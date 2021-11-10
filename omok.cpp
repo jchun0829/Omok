@@ -1,7 +1,7 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
 #include <stdlib.h>
 
-int judge( int t ; int la ; int po ; int a[la][po] )
+int judge( int t, int la, int po, int* a[] )
 {
     if ( t % 2 == 0 )
     {
@@ -12,7 +12,7 @@ int judge( int t ; int la ; int po ; int a[la][po] )
         {
         case 0:
             for( int i = 1 ; i <= fo ; i ++ )
-            {
+            {		
                 if( a[la+i][po] == 1) win++;
                 else if( a[la+(i-fo)][po] == 1) win++;
                 if( win == 4 ) return win;
@@ -95,8 +95,8 @@ int main()
     int a[19][19]={0};
     int t = 0;
     int la,po = 0;
-    printf("ì‹œìž‘\n");
-    printf("í‘ëŒ = 1 í°ëŒ = 2\n");
+    printf("¤Ô¤¨¤Â¤¢¤Ô¤·¤Æ¤¡\n");
+    printf("¤Ô¤¶¤Ñ¤£¤Ô¤©¤Ë¤¢ = 1 ¤Ô¤¶¤Ò¤°¤Ô¤©¤Ë¤¢ = 2\n");
 
     while(1)
     {
@@ -107,8 +107,12 @@ int main()
         if( la>=19 || po>=19 )continue;
         if( a[la][po] != 0 )continue;
         a[la][po] = 1;
-        int judge(t,la,po,a[la][po]) = d;
-        if ( d == 5 ) printf("win");
+        int d = judge(t,la,po,a[la][po]) ;
+        if ( d == 4 ) 
+        {
+        	printf("win");
+        	break;
+        }
         t++ ;
         for( int i = 0 ; i < 19 ; i++ )
             {
