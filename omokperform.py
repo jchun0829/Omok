@@ -4,7 +4,7 @@ b_win = 0 # 흑색 흰색 이긴횟수
 w_win = 0
 turn = 0 # 흑색 흰색 턴 판단
 len_board = 7
-num_game = 4
+num_game = 5
 omok = [['0']*len_board for i in range(len_board)]
 Eng_Num = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14],
            ['a','b','c','d','e','f','g','h','i','j','k','m','n','o'],
