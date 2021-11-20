@@ -5,20 +5,25 @@ w_win = 0
 turn = 0 # 흑색 흰색 턴 판단
 len_board = 7
 num_game = 5
+count_y = 0
+count_n = 0
 omok = [['0']*len_board for i in range(len_board)]
 Eng_Num = [[1,2,3,4,5,6,7,8,9,10,11,12,13,14],
            ['a','b','c','d','e','f','g','h','i','j','k','m','n','o'],
            ['A','B','C','D','E','F','G','H','I','J','K','M','N','O']]
 
 def repeat_game():#게임의 반복 여부
+    global count_y
+    global count_n
     print('한 판 더 하시겠습니까? : ',end='')
     user_re = input()
     if user_re == 'Y' or user_re == 'y' :
-        return True
+        count_y += 1
+        return 
     elif user_re == 'N' or user_re == 'n' :
-        return False
-    else :
-        repeat_game
+        count_n += 1
+        return 
+    repeat_game()
 
 def game_ready():#게임이 시작시 오목판 초기화 
     global len_board
@@ -98,15 +103,20 @@ def po_la_input(color):#사용자 입력값
         po = int(po) - 1
         la = int(la) - 1 
         if( po >= len_board or po < 0 or la >= len_board or la < 0 ):
+            print('범위를 벗어난 좌표입니다')
             po_la_input(color)
         else :
             if( omok[po][la] == '0' ):
                 omok[po][la] = stone
                 judge_win(po,la,1,0,color)
-            else :
+            elif( omok[po][la] == 'W' ):
+                print('그곳에는 흰색돌이 있습니다.')
                 po_la_input(color)
-        
+            else :
+                print('그곳에는 검은색돌이 있습니다.')
+                po_la_input(color)        
     else :
+        print('범위에 맞는 숫자나 알파벳을 입력해주세요')
         po_la_input(color)
     
 def print_board(color):#보드 출력
@@ -144,13 +154,15 @@ def judge_win( po, la, di, score, color):#승리 판단 메인함수
     global b_win
     global w_win
     global Game_repeat
+    global count_y
     if ( color == 3 ):
         print('무승부입니다 ',end='')
-        anw = repeat_game()
-        if anw == True :
+        repeat_game()
+        if count_y == 1 :
+            count_y = 0
             reset_board()
             return 0 
-        else :
+        elif count_n == 1 :
             Game_repeat = True
             return 0
         
@@ -169,8 +181,9 @@ def judge_win( po, la, di, score, color):#승리 판단 메인함수
             w_win += 1
             
         print(print_color,'승리 한번더 하시겠습니까 \'Y\'?','',end='')
-        asw = repeat_game()
-        if asw == True :
+        repeat_game()
+        if count_y == 1 :
+            count_y = 0
             reset_board()
             return 0
         
